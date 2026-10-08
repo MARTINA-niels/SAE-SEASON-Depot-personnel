@@ -32,11 +32,11 @@ classDiagram
         +choisirAction() action légale au hasard
     }
     class RobotGlouton {
-        +choisirAction() maximise les cristaux immédiats
+        +choisirAction() maximise les cristaux (cristallisation)
     }
-    class RobotStrategique {
-        +repartirCartes() selon la valeur des cartes et l'année
-        +choisirAction() évalue coût / gain / saison
+    class RobotPrestige {
+        +repartirCartes() selon le prestige des cartes et l'année
+        +choisirAction() maximise les points de prestige
     }
     class RobotCombo {
         +repartirCartes() regroupe les combinaisons la même année
@@ -48,8 +48,8 @@ classDiagram
     AbstractRobot <|-- RobotPasseur
     AbstractRobot <|-- RobotAleatoire
     AbstractRobot <|-- RobotGlouton
-    AbstractRobot <|-- RobotStrategique
-    RobotStrategique <|-- RobotCombo
+    AbstractRobot <|-- RobotPrestige
+    RobotPrestige <|-- RobotCombo
 ```
 
 ### Stratégies prévues
@@ -58,9 +58,9 @@ classDiagram
 |---|---|---|
 | `RobotPasseur` | 2 | Termine son tour sans rien faire. Sert à valider la boucle de jeu et sert de référence « plancher » dans les statistiques. |
 | `RobotAleatoire` | 3 (v1), 4 (v2) | Choisit au hasard parmi les décisions légales : dé, énergies à garder, répartition des 9 cartes en 3 paquets, invocation. |
-| `RobotGlouton` | 5 | Maximise les cristaux immédiats : choisit le dé qui rapporte le plus de cristaux ou d'énergies rares, cristallise les énergies les plus rentables de la saison, invoque les cartes à gain direct (Amulette de terre, Statue bénie d'Olaf), utilise ses bonus si le gain dépasse le malus. |
-| `RobotStrategique` | 6 | Évalue chaque carte (points de prestige, rentabilité, coût), répartit ses cartes sur les 3 années, garde des énergies selon la saison suivante, évite les cartes qui resteraient en main (−5 points chacune). |
-| `RobotCombo` | 7 | Étend le stratégique : place ensemble les cartes qui se renforcent (Main de la fortune avant d'autres invocations, Bâton du printemps et Vase oublié d'Yjang avant une série d'invocations, Bourse d'Io avec Balance d'Ishtar ou Potion de vie), garde le Heaume de Ragfield et les cartes de fin de partie pour l'année 3. |
+| `RobotGlouton` | 5 | Heuristique « cristallisation » : choisit le dé qui rapporte le plus de cristaux ou d'énergies rares de la saison, cristallise les énergies les plus rentables (cours de la saison, bonus de cristallisation), invoque les cartes à gain direct de cristaux (Amulette de terre, Statue bénie d'Olaf), utilise ses bonus si le gain dépasse le malus. |
+| `RobotPrestige` | 6 | Heuristique « prestige » : évalue chaque carte (points de prestige, rapport prestige / coût), répartit ses 9 cartes sur les 3 années, invoque en priorité les cartes à fort prestige (Cube runique d'Eolis, Syllas, Calice divin), évite de garder des cartes en main (−5 points chacune) et garde les énergies utiles à la saison suivante. |
+| `RobotCombo` | 7 | Étend le robot « prestige » : place ensemble les cartes qui se renforcent (Main de la fortune avant d'autres invocations, Bâton du printemps et Vase oublié d'Yjang avant une série d'invocations, Bourse d'Io avec Balance d'Ishtar ou Potion de vie), garde le Heaume de Ragfield et les cartes de fin de partie pour l'année 3. |
 
 La règle du projet — **tout nouvel élément du moteur doit être utilisé par un robot** — est suivie dans `matrice-elements-robots.md`.
 
@@ -164,7 +164,7 @@ classDiagram
 ```text
 === Simulation : 500 parties, 3 joueurs ===
 Rang  Robot            Victoires  Taux   Moy. pts  Min  Max  Egalités
-1     RobotStrategique       284  56,8%     131,4   62  212        3
+1     RobotPrestige       284  56,8%     131,4   62  212        3
 2     RobotGlouton           171  34,2%     112,9   48  187        3
 3     RobotAleatoire          42   8,4%      74,6   10  149        3
 ```

@@ -20,8 +20,13 @@ classDiagram
         ETE
         AUTOMNE
         +rarete(Energie e) Rarete
-        +valeurCristallisation(Energie e) int
+        +energiesCourantes() List~Energie~
+        +energiesPeuCourantes() List~Energie~
+        +energieIntrouvable() Energie
         +suivante() Saison
+    }
+    class TableCristallisation {
+        +taux(Saison s, Energie e, boolean bonusPlusUn) int
     }
     class Rarete {
         <<enumeration>>
@@ -29,14 +34,6 @@ classDiagram
         PEU_COURANT
         INTROUVABLE
         +cristaux() int
-    }
-    class TypeActionDe {
-        <<enumeration>>
-        RECEVOIR_ENERGIE
-        RECEVOIR_CRISTAUX
-        CRISTALLISER
-        AUGMENTER_JAUGE
-        PIOCHER
     }
     class TypeBonus {
         <<enumeration>>
@@ -47,9 +44,11 @@ classDiagram
     }
     Saison ..> Energie : rareté par énergie
     Saison ..> Rarete
+    TableCristallisation ..> Saison
+    TableCristallisation ..> Rarete
 ```
 
-**Cours des énergies** (page 16 des règles) : `COURANT` = 1 cristal, `PEU_COURANT` = 2, `INTROUVABLE` = 3.
+**Cours des énergies** (page 16 des règles, calculé par `TableCristallisation`) : `COURANT` = 1 cristal, `PEU_COURANT` = 2, `INTROUVABLE` = 3.
 
 | Saison | Courant (1) | Peu courant (2) | Introuvable (3) |
 |---|---|---|---|
@@ -132,14 +131,12 @@ classDiagram
     }
     class FaceDe {
         <<record>>
-        List~ActionDe~ actions
-        int pointsAvancee
-    }
-    class ActionDe {
-        <<record>>
-        TypeActionDe type
-        Energie energie
-        int quantite
+        int cristaux
+        List~Energie~ energies
+        int augmentationJauge
+        boolean pioche
+        boolean cristallisation
+        int pointsAvancement
     }
 
     Plateau "1" *-- "1" RoueDesSaisons
@@ -152,16 +149,14 @@ classDiagram
     RoueDesSaisons ..> ResultatAvancee
     StockEnergie ..> CompteurEnergies
     De "1" *-- "6" FaceDe
-    FaceDe "1" *-- "*" ActionDe
     De ..> Saison
-    ActionDe ..> TypeActionDe
-    ActionDe ..> Energie
+    FaceDe ..> Energie
 ```
 
 Remarques :
 
 - Il y a **20 dés** : 5 par saison. Une partie à N joueurs utilise **N + 1 dés par couleur** (3, 4 ou 5).
-- Chaque dé a 6 faces ; chaque face porte une ou plusieurs actions et un nombre de points (1, 2 ou 3) qui fait avancer la roue quand le dé n'est pas choisi. Sur un dé : 2 faces à 1 point, 2 faces à 2 points, 2 faces à 3 points.
+- Chaque dé a 6 faces. Une `FaceDe` est décrite par des champs concrets (cristaux reçus, énergies reçues, augmentation de la jauge, pioche, autorisation de cristalliser) et par un nombre de points d'avancement (1, 2 ou 3) qui fait avancer la roue quand le dé n'est pas choisi. Ce format, plus simple qu'une liste d'actions, se lit directement dans `des.json` et permet aux robots d'évaluer une face en une ligne. Sur un dé : 2 faces à 1 point, 2 faces à 2 points, 2 faces à 3 points.
 - **Le contenu exact des faces n'est pas décrit dans les règles** : il est chargé depuis `des.json` (voir `conception.md`, points à valider).
 - `RoueDesSaisons` : cases 1 à 12 ; hiver = 1-3, printemps = 4-6, été = 7-9, automne = 10-12. Le passage de la case 12 à la case 1 déclenche un changement d'année.
 - `PisteDesCristaux.retirer` ne descend jamais sous 0 et retourne le nombre de cristaux réellement retirés (utile pour Figrim, Kairn).
@@ -180,6 +175,7 @@ classDiagram
         +cartesEnJeu() List~CarteEnJeu~
         +energiesDisponibles() CompteurEnergies
         +nbCartesInvoquees() int
+        +debloquerCartesAnnee(int annee)
     }
     class PlateauIndividuel {
         +ReserveEnergie reserve

@@ -97,28 +97,39 @@ Précisions :
 
 Un effet agit sur le jeu uniquement à travers `ContexteEffet` ; quand il faut un choix (énergie « de votre choix », adversaire, carte à sacrifier…), il passe par `Decideur`, que le robot implémente.
 
+Pour éviter une interface unique de plus de vingt méthodes, `ContexteEffet` est **découpé en trois interfaces par thème** (principe de ségrégation des interfaces). Le moteur (`Partie`) implémente les trois ; un effet de test peut n'en simuler qu'une.
+
 ```mermaid
 classDiagram
-    class ContexteEffet {
+    class OperationsRessources {
         <<interface>>
-        +nbJoueurs() int
-        +saisonCourante() Saison
-        +adversaires(Joueur j) List~Joueur~
         +recevoirEnergies(Joueur j, Energie e, int n)
         +defausserEnergies(Joueur j, CompteurEnergies c)
         +recevoirCristaux(Joueur j, int n)
         +perdreCristaux(Joueur j, int n) int
         +augmenterJauge(Joueur j, int n)
         +diminuerJauge(Joueur j, int n)
+        +cristalliser(Joueur j, CompteurEnergies c, int cristauxParEnergie)
+    }
+    class OperationsCartes {
+        <<interface>>
         +piocher(Joueur j) Optional~CartePouvoir~
         +defausserCarte(CartePouvoir c)
         +sacrifier(Joueur j, CarteEnJeu c)
         +renvoyerEnMain(Joueur j, CarteEnJeu c)
         +mettreEnJeuGratuitement(Joueur j, CartePouvoir c) boolean
-        +cristalliser(Joueur j, CompteurEnergies c, int cristauxParEnergie)
+    }
+    class OperationsTemps {
+        <<interface>>
+        +saisonCourante() Saison
         +avancerSaison(int cases)
         +reculerSaison(int cases)
         +relancerDe(Joueur j)
+    }
+    class ContexteEffet {
+        <<interface>>
+        +nbJoueurs() int
+        +adversaires(Joueur j) List~Joueur~
         +decideur(Joueur j) Decideur
     }
     class Decideur {
@@ -136,6 +147,9 @@ classDiagram
     class Robot {
         <<interface>>
     }
+    ContexteEffet --|> OperationsRessources
+    ContexteEffet --|> OperationsCartes
+    ContexteEffet --|> OperationsTemps
     ContexteEffet <|.. Partie
     Decideur <|-- Robot
     ContexteEffet ..> Decideur

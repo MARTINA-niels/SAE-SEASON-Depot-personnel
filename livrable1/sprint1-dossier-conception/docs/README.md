@@ -19,6 +19,7 @@ Les diagrammes sont écrits en **Mermaid** : ils s'affichent directement sur Git
 | [`06-classes-robots-simulation.md`](06-classes-robots-simulation.md) | Classes : robots, affichage, simulation |
 | [`07-sequences.md`](07-sequences.md) | 8 diagrammes de séquence |
 | [`08-etats-et-activite.md`](08-etats-et-activite.md) | Diagrammes d'états (partie, carte) et d'activité (manche) |
+| [`comparaison-classes-equipe.md`](comparaison-classes-equipe.md) | Comparaison avec le diagramme `classes.md` de l'équipe : avantages, défauts, éléments repris |
 | [`catalogue-cartes.md`](catalogue-cartes.md) | Les 30 cartes classées par type d'effet, jeux pré-construits, interactions |
 | [`matrice-elements-robots.md`](matrice-elements-robots.md) | Élément du jeu → classe → robot qui l'utilise |
 | [`plan-de-tests.md`](plan-de-tests.md) | Tests unitaires et d'intégration prévus |
@@ -33,7 +34,7 @@ Les diagrammes sont écrits en **Mermaid** : ils s'affichent directement sur Git
 - [ ] 8 diagrammes de séquence cohérents avec les diagrammes de classes
 - [ ] Diagrammes d'états et d'activité
 - [ ] Catalogue des 30 cartes complété avec les **coûts** et les **catégories** relevés sur les cartes
-- [ ] Questions Q1 à Q7 de `conception.md` envoyées au client
+- [ ] Questions Q1 à Q8 de `conception.md` envoyées au client
 - [ ] Matrice éléments → robots complète
 - [ ] Plan de tests et backlog relus
 - [ ] Tout est poussé sur GitHub (branche `main`), tag `sprint-1`

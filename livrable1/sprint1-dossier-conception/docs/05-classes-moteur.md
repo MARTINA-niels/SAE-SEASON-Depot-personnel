@@ -80,7 +80,7 @@ classDiagram
         +coutEffectif(Joueur j, CartePouvoir c) Cout
         +peutInvoquer(Joueur j, CartePouvoir c) boolean
         +peutActiver(Joueur j, CarteEnJeu c) boolean
-        +valeurCristallisation(Saison s, Energie e, boolean bonus) int
+        +tauxCristallisation(Saison s, Energie e, boolean bonus) int
         +ordrePremierJoueur(List~Participant~ ps) Participant
         +anneeFinale() int
     }

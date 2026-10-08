@@ -14,7 +14,7 @@ flowchart TB
     APP["fr.seasons.app<br/>MainPartie, MainSimulation"]
     SIM["fr.seasons.simulation<br/>Simulateur, Classement, statistiques"]
     AFF["fr.seasons.affichage<br/>AfficheurTexte, AfficheurSilencieux"]
-    ROB["fr.seasons.robots<br/>RobotPasseur, RobotAleatoire, RobotGlouton, RobotStrategique, RobotCombo"]
+    ROB["fr.seasons.robots<br/>RobotPasseur, RobotAleatoire, RobotGlouton, RobotPrestige, RobotCombo"]
     MOT["fr.seasons.moteur<br/>Partie, Manche, Tour, Regles, Robot, événements"]
     CAR["fr.seasons.cartes<br/>CatalogueCartes, effets des 30 cartes"]
     MOD["fr.seasons.modele<br/>Plateau, Joueur, De, Energie, Saison<br/>+ modele.carte : CartePouvoir, Effet, ContexteEffet"]

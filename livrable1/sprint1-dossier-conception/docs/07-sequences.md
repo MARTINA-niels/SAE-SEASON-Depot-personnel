@@ -89,7 +89,7 @@ sequenceDiagram
         T->>R: garderEnReserve(toutes, capacite, vue)
         R-->>T: énergies conservées
     end
-    opt la face du dé contient PIOCHER
+    opt la face du dé autorise la pioche
         T->>R: garderCartePiochee(carte, vue)
         R-->>T: garder ou défausser
     end
@@ -171,6 +171,7 @@ sequenceDiagram
     participant R as Robot
     participant T as Tour
     participant Rg as Regles
+    participant Tc as TableCristallisation
     participant J as Joueur
     participant Pc as PisteDesCristaux
     participant St as StockEnergie
@@ -180,8 +181,10 @@ sequenceDiagram
     Note over T: la cristallisation est disponible grâce au dé ou à un bonus
     R-->>T: ActionCristalliser(énergies choisies)
     loop chaque énergie choisie
-        T->>Rg: valeurCristallisation(saison, énergie, bonus)
-        Rg-->>T: 1, 2 ou 3 cristaux (+1 si bonus de cristallisation)
+        T->>Rg: tauxCristallisation(saison, énergie, bonus)
+        Rg->>Tc: taux(saison, énergie, bonus)
+        Tc-->>Rg: 1, 2 ou 3 cristaux (+1 si bonus de cristallisation)
+        Rg-->>T: taux
     end
     T->>J: retirer les énergies de la réserve
     T->>St: rendre(énergies défaussées)

@@ -9,7 +9,7 @@ Estimations en points (1 = très simple, 2 = simple, 3 = moyen, 5 = complexe). P
 | US-201 | En tant que D, je code les énumérations `Energie`, `Saison`, `Rarete` et le cours des énergies | M | 2 |
 | US-202 | En tant que D, je code `CompteurEnergies`, `ReserveEnergie` (capacité 7), `StockEnergie` | M | 3 |
 | US-203 | En tant que D, je code `RoueDesSaisons`, `EchelleDesAnnees`, `ResultatAvancee` | M | 3 |
-| US-204 | En tant que D, je code `De`, `FaceDe`, `ActionDe` et le chargement de `des.json` | M | 3 |
+| US-204 | En tant que D, je code `De`, `FaceDe` (champs concrets), `TableCristallisation` et le chargement de `des.json` | M | 3 |
 | US-205 | En tant que D, je code `Joueur`, `PlateauIndividuel`, `JaugeInvocation`, `PisteDesBonus` | M | 3 |
 | US-206 | En tant que D, je code `Plateau` et `PisteDesCristaux` | M | 2 |
 | US-207 | En tant que D, je code `MiseEnPlace` pour 2 à 4 joueurs (N+1 dés par couleur) | M | 3 |
@@ -25,7 +25,7 @@ Estimations en points (1 = très simple, 2 = simple, 3 = moyen, 5 = complexe). P
 | US-301 | En tant que D, je code le choix des dés dans l'ordre du tour (`choisirDe`) | M | 3 |
 | US-302 | En tant que D, je résous les actions d'un dé : énergies, cristaux, jauge | M | 3 |
 | US-303 | En tant que D, je gère le dépassement de la réserve (`garderEnReserve`) | M | 2 |
-| US-304 | En tant que D, je code la cristallisation (`ActionCristalliser`, `Regles.valeurCristallisation`) | M | 3 |
+| US-304 | En tant que D, je code la cristallisation (`ActionCristalliser`, `TableCristallisation`) | M | 3 |
 | US-305 | En tant que D, je code le dé restant et l'avancée de la saison, les changements de saison et d'année | M | 3 |
 | US-306 | En tant que D, je code la rotation du premier joueur et la fin de partie | M | 2 |
 | US-307 | En tant que D, je code `Decompte` (score = cristaux) | M | 2 |
@@ -76,7 +76,7 @@ Estimations en points (1 = très simple, 2 = simple, 3 = moyen, 5 = complexe). P
 | US-604 | En tant que D, je code les effets liés aux saisons : 7 (Bottes), 11 (Figrim), 27 (Sablier) | M | 5 |
 | US-605 | En tant que D, je code les mises en jeu gratuites : 9 (Calice), 24 (Potion de rêves) | M | 3 |
 | US-606 | En tant que D, je code 15 (Dé de la malice), 18 (Grimoire), 19 (Heaume) | M | 5 |
-| US-607 | En tant que D, je code `RobotStrategique` v1 | M | 5 |
+| US-607 | En tant que D, je code `RobotPrestige` v1 | M | 5 |
 | US-608 | En tant que D, j'écris les tests T40 à T50 | M | 3 |
 
 ## Sprint 7 — 30 cartes complètes, robots avancés, visualisation (livraison 20 nov.)

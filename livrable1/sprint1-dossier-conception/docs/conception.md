@@ -63,6 +63,8 @@ Réaliser une version électronique du jeu **Seasons** en Java, avec un modèle 
 | `VuePartie` en lecture seule | Un robot ne voit que l'information publique |
 | `StrategieDistribution` | Distribution actuelle = jeux pré-construits ; un draft futur s'y branche |
 | `Random` injecté avec une graine | Parties reproductibles, simulations vérifiables |
+| `ContexteEffet` découpé en 3 interfaces (ressources, cartes, temps) | Principe de ségrégation des interfaces : un effet ne dépend que de ce qu'il utilise |
+| `FaceDe` à champs concrets, `TableCristallisation` | Données lisibles directement dans `des.json`, règles de cours des énergies isolées et testables |
 | Enums `Saison` et `Rarete` | Le cours des énergies est une table, pas du code conditionnel |
 
 ## 5. Déroulé d'une partie (résumé)
@@ -99,6 +101,8 @@ Voir les diagrammes de séquence (`07-sequences.md`) et d'activité (`08-etats-e
 
 ## 8. Points à valider avec le client
 
+(La comparaison avec le diagramme de classes de l'équipe est dans [`comparaison-classes-equipe.md`](comparaison-classes-equipe.md).)
+
 | N° | Point | Détail |
 |---|---|---|
 | Q1 | **Balance d'Ishtar (carte 5)** | Le texte de la carte indique « défaussez 4 énergies identiques, 12 cristaux » ; le lexique indique « 3 énergies identiques, 9 cristaux ». Quelle version appliquer ? Hypothèse de travail : le lexique (3 énergies, 9 cristaux). |
@@ -108,3 +112,4 @@ Voir les diagrammes de séquence (`07-sequences.md`) et d'activité (`08-etats-e
 | Q5 | **Cartes 8, 10 et 19** | Aucun jeu pré-construit ne les contient : elles ne peuvent venir que de la pioche. Confirmer que c'est voulu. |
 | Q6 | **Ordre de fin de manche** | Confirmer l'hypothèse H4. |
 | Q7 | **Statistiques de la simulation** | Quels indicateurs, au-delà des victoires et de la moyenne (médiane, écart-type, taux d'égalité, nombre de cartes invoquées) ? |
+| Q8 | **Départage d'égalité** | Le livret ne départage que par le nombre de cartes invoquées. Faut-il ajouter un critère (par exemple le nombre de cristaux) avant de déclarer une victoire partagée ? |
